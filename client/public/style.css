@@ -1,0 +1,27 @@
+#logo {
+  font-family: 'Audiowide', cursive;
+  font-size: 35px;
+}
+
+.logo {
+  font-family: 'Audiowide', cursive;
+}
+
+.section-head {
+  font-family: 'Audiowide', cursive;
+  font-size: 26px;
+}
+
+.lnk {
+  color: navy;
+}
+
+.lnk:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.pagehead {
+  color: navy;
+  font-size: 32px;
+}
