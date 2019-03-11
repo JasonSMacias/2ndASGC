@@ -16,7 +16,7 @@ var db = require('./models')
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(logger('dev'));
+// app.use(logger('dev'));
 // app.use(cookieParser());
 // app.use(express.static('public'));
 
