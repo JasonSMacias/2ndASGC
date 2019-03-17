@@ -69,16 +69,16 @@ module.exports = {
 
   addAddress: function (req, res) {
     //  Here is where the problem is
-    geocoder.geocode(req)
+    geocoder.geocode(req.body)
       .then(function(res) {
         console.log(res);
         let newJson = {geocodeLocation: res[0]}
-        console.log(newJson);
+        console.log("NewJson"+newJson);
         db
           .User
           .update(newJson, {
             where: {
-              id: req.id
+              id: req.body.id
             }
           })
           .then(dbUsers => dbUsers)
