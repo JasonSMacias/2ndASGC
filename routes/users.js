@@ -24,11 +24,11 @@ router
     res.redirect('/');
   });
 
-router
-  .route('/:username')
-  .get(userController.findByName)
-  .put(userController.update)
-  .delete(userController.delete);
+// router
+//   .route('/:username')
+//   .get(userController.findByName)
+//   .put(userController.update)
+//   .delete(userController.delete);
 
 router
   .route('/id/:id')
@@ -36,7 +36,7 @@ router
   .put(userController.updateById);
 
 router
-  .route('/geo/:id')
+  .route('/geo')
   .put(userController.addAddress);
 
 module.exports = router;

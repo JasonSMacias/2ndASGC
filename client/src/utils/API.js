@@ -29,5 +29,11 @@ export default {
   register: function(userInfo) {
     return axios.post("/api/users", userInfo);
     console.log(userInfo);
+  },
+
+  // path to add user geo data to database, uses object with id and address
+  addAddress: function (userInfo) {
+    console.log("======================Userinfo"+JSON.stringify(userInfo));
+    return axios.put("/api/users/geo", userInfo);
   }
 }

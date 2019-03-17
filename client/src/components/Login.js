@@ -31,7 +31,7 @@ class Login extends Component {
       .then(res => {
         console.log(res.data);
         this.setState({isLoggedIn: res.data})
-
+        this.usercheck();
       })
       .catch(err => {
         console.log(err.response);
@@ -79,13 +79,17 @@ class Login extends Component {
     this.setState({active: "modal", success: true});
   }
 
-  render () {
+  componentDidMount() {
     // If user is logged in, take them to main page
     if (this.state.isLoggedIn) {
       console.log("it worked");
       this.usercheck();
       // return <Redirect to ="/dashboard" />
     }
+
+  }
+
+  render () {
     return (
       <React.Fragment>
         {/* <p>Sign in stuff OR basic member information <br /> and link to dashboard</p>     */}
@@ -149,8 +153,8 @@ class Login extends Component {
                 <div>Logged in as {this.state.username}</div>
                 <br />
                 <div>
-                  City: {this.state.geocodeLocation.city} <br />
-                  Latitude and Longitude: {this.state.geocodeLocation.latitude}, {this.state.geocodeLocation.longitude}
+                  City: {this.state.geocodeLocation ? this.state.geocodeLocation.city : "City not found"} <br />
+                  Latitude and Longitude: {this.state.geocodeLocation ?this.state.geocodeLocation.latitude : "coordinates"}, {this.state.geocodeLocation ?this.state.geocodeLocation.longitude : "not found"}
                 </div>
                 <br />
                 <div className="control">

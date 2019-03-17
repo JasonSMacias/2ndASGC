@@ -68,8 +68,8 @@ module.exports = {
   },  
 
   addAddress: function (req, res) {
-    console.log(req.body);
-    geocoder.geocode(req.body)
+    //  Here is where the problem is
+    geocoder.geocode(req)
       .then(function(res) {
         console.log(res);
         let newJson = {geocodeLocation: res[0]}
@@ -78,7 +78,7 @@ module.exports = {
           .User
           .update(newJson, {
             where: {
-              id: req.params.id
+              id: req.id
             }
           })
           .then(dbUsers => dbUsers)
@@ -134,7 +134,7 @@ module.exports = {
             }
           
             console.log(req.user);
-            return res.json("/");
+            return res.json(userInfo);
           });
       })
       .catch(function (err) {

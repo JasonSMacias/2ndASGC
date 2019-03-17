@@ -38,7 +38,14 @@ class Signup extends Component {
           password: this.state.password 
           })
         .then(res => {
-          console.log(res.data);
+          console.log("returned from register"+JSON.stringify(res.data));
+          console.log("this.state.address from signup"+this.state.address);
+          let idAddress = {address: this.state.address, id: res.data.id};
+          console.log("idAddress: "+JSON.stringify(idAddress));
+          API
+            .addAddress(idAddress)
+            .then(console.log("addAddress api call returned"))
+            .catch(err => console.log(err));
           this.setState({
             asgc: 'Abstract Strategy Gamers Club',
             modalContent: 'Sign up successful.',
@@ -48,7 +55,7 @@ class Signup extends Component {
           // this.setState({ success: res.data });
           
         })
-        .catch(err => console.log(err.response.data));
+        .catch(err => console.log(err));
     }
     else {
       this.setState({
