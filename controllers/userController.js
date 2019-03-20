@@ -15,7 +15,7 @@ module.exports = {
     db
       .User
       .findAll({
-        attributes: ["id", "name", "user_name", "email", "address"]
+        attributes: ["id", "name", "username", "email", "address"]
       })
       .then(dbUsers => res.json(dbUsers))
       .catch(err => {
