@@ -50,14 +50,14 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  // User.associate = function (models) {
-  //   models.User.belongsToMany(models.Game, {
-  //     through: "UserGame"
-  //   });
-  //   models.User.belongsToMany(models.Site, {
-  //     through: "UserSite"
-  //   })
-  // };
+  User.associate = function (models) {
+    models.User.belongsToMany(models.Game, {
+      through: "UserGame"
+    });
+    // models.User.belongsToMany(models.Site, {
+    //   through: "UserSite"
+    // })
+  };
 
   // Next two sections for passport implementation
   // create method for all user objects to use for passport

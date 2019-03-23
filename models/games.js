@@ -11,14 +11,14 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  // Game.associate = function (models) {
-  //   models.Game.belongsToMany(models.User, {
-  //     through: "UserGame"
-  //   });
-  //   models.Game.belongsToMany(models.Site, {
-  //     through: "UserSite"
-  //   })
-  // };
+  Game.associate = function (models) {
+    models.Game.belongsToMany(models.User, {
+      through: "UserGame"
+    });
+    // models.Game.belongsToMany(models.Site, {
+    //   through: "UserSite"
+    // })
+  };
 
   return Game;
 };
