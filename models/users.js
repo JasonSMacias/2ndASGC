@@ -36,6 +36,11 @@ module.exports = function(sequelize, DataTypes) {
         len: [1, 255]
       }
     },
+    // SpecialGames: {
+      // format: gameName: {ranking: number1-10, hotness: number1-10}
+    //   type: DataTypes.JSON,
+    //   allowNull: true,
+    // },
     geocodeLocation: {
       type: DataTypes.JSON,
       allowNull: true,
