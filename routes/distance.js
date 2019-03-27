@@ -4,7 +4,7 @@ var router = express.Router();
 const distanceController = require('../controllers/distanceController');
 
 router
-  .route('/')
+  .route('/:id')
   .get(distanceController.findNear);
 
   module.exports = router;
