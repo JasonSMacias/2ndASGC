@@ -1,7 +1,7 @@
 const db = require('../models');
 const usergameController = require('./usergameController');
 
-// const turfDistance = require('@turf/distance');
+const turfDistance = require('@turf/distance');
 
 module.exports = {
   // compare coordinates sent in latitude and longitude in req.body to coordinates of other users in db where a match exists with one of the games in game interest array sent in req.body, return sorted list of nearest users with matching game interests. or maybe just send user id and set up promise chain to get coordinates, games, then get users with matching games, get coordinates for each, use turf distance to set a distance for each, and sort, then return sorted list.
@@ -85,47 +85,30 @@ module.exports = {
 
             return gamers;
           });
-          Promise.all(rawGamesArray).then((completed) => {
+
+          // Damn, it took forever to figure out that I had to use Promise.all with a .map :-/
+          const finalArray = await Promise.all(rawGamesArray).then((completed) => {
             console.log("result ===== "+ JSON.stringify(completed[0]));
             console.log("result ===== "+ JSON.stringify(completed[1]));
+            return completed;
+          });
 
-          })
-                 
-            // this works here, but I can't get it outside of function
-            // .then(dbGame => {
-              // console.log("returned within map "+ JSON.stringify(gamers[0].Users));
-            //   temp = dbGame[0].Users;
-            //   return dbGame[0].Users;
-            // });
-            // .catch(err => {
-            //   console.log(err);
-            //   res.status(404).json(err);
-            // });
-          
+          console.log("++++++  Final  +++++++"+finalArray);
+            
+          return finalArray;
           
         };
         
         const getstuff = async () =>{
         const gamers = await gamesGamers();
-        console.log('gamers: '+JSON.stringify(gamers));
+        console.log('gamers: '+gamers);
         return gamers;
         };
-        getstuff();
+        return getstuff();
       };
           
       mapper();
-    
-        // .then(dbGame => {
-        //   console.log("returned from map "+ JSON.stringify(dbGame));
-        //   // temp = dbGame[0].Users;
-        //   return games;
-        // })
-        // .then(data => res.json(data))
-        // .catch(err => {
-        //   console.log(err);
-        //   res.status(404).json(err);
-        // });
-    // };
+
 
 
     //  compare user geocode to each pulled user geocode, adding distance between to new key/value in each user object
