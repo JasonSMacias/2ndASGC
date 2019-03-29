@@ -9,86 +9,122 @@ module.exports = {
       let geocode = {};
       let games = [];
       let gameIds;
+      const searchingUserId = req.params.id;
+      console.log("User doing the search: "+searchingUserId);
       
     
     // take userid in req.params and hit user db, pulling out games and geocode data and saving them in variables
     // function getUserData() {
-
-      db
-        .User
-        .findOne({
-          include: [
-          {
-            model: db.Game,
-            through: db.UserGame,
-            },
-          
-        ],
-          where: {
-            id: req.params.id
-          },
-          
-        })
-        .then(dbUser => {
-          // console.log(dbUser);
-          geocode = dbUser.geocodeLocation;
-          games = dbUser.Games;
-          console.log("Geocode: "+geocode);
-          console.log("Games[0].dataValues.id "+games[1].dataValues.id);
-          
-          
-          // hit usergamecontroller by games pulled from initial user, put users associated with them in an array of objects that include geocode data.
-
-          // map game ids out of games and run getgamers for each
-          return games.map((game) => {
-            let gameNum = game.dataValues.id;
-            console.log("gameNum: "+gameNum);
- 
-               return
-              db
-              .Game
-              .findAll({
-                include: [
-                {
-                  model: db.User,
-                  through: db.UserGame,
-                  },
-                
-              ],
-                where: {
-                  id: gameNum
-                },
-                
-              })
-
-              // this works here, but I can't get it outside of function
-              // .then(dbGame => {
-              //   console.log("returned within map "+ JSON.stringify(dbGame[0].Users));
-              //   temp = dbGame[0].Users;
-              //   return dbGame[0].Users;
-              // });
-              // .catch(err => {
-              //   console.log(err);
-              //   res.status(404).json(err);
-              // });
+      const getUserData = async () => {
+        const response = await db
+          .User
+          .findOne({
+            include: [
+            {
+              model: db.Game,
+              through: db.UserGame,
+              },
             
+          ],
+            where: {
+              id: req.params.id
+            },
             
           });
-          
-          
-          
+        
+        const users = await response;
+        geocode = users.geocodeLocation;
+        games = users.Games;
+        console.log("Geocode: "+JSON.stringify(geocode));
+        console.log("Games[0].dataValues.id "+games[1].dataValues.id);
+        return users;
+      };
 
-        })
-        .then(dbGame => {
-          console.log("returned from map "+ JSON.stringify(dbGame));
-          // temp = dbGame[0].Users;
-          return games;
-        })
-        .then(data => res.json(data))
-        .catch(err => {
-          console.log(err);
-          res.status(404).json(err);
-        });
+      const mapper = async () => {
+        // await users from GetUserData;
+        const users = await getUserData();
+
+        // map game ids out of games (global variable set in getuserdata) and run getgamers for each
+
+        // setting up db function
+        const findGamerByGame = async (gameNum) => {
+          const gamers = await
+            db
+            .Game
+            .findAll({
+              include: [
+              {
+                model: db.User,
+                through: db.UserGame,
+                },
+              
+            ],
+              where: {
+                id: gameNum
+              },
+              
+            });
+          
+          return gamers;
+
+        }
+
+        const gamesGamers = async () => {
+
+          const rawGamesArray = games.map(async (game) => {
+            
+            let gameNum = game.dataValues.id;
+
+            // temporary line below, manually using 0 index value, which would be as above line in real map 
+            // let gameNum = games[0].dataValues.id;
+
+
+            console.log("gameNum: "+gameNum);
+
+            const gamers = await findGamerByGame(gameNum);
+
+            return gamers;
+          });
+          Promise.all(rawGamesArray).then((completed) => {
+            console.log("result ===== "+ JSON.stringify(completed[0]));
+            console.log("result ===== "+ JSON.stringify(completed[1]));
+
+          })
+                 
+            // this works here, but I can't get it outside of function
+            // .then(dbGame => {
+              // console.log("returned within map "+ JSON.stringify(gamers[0].Users));
+            //   temp = dbGame[0].Users;
+            //   return dbGame[0].Users;
+            // });
+            // .catch(err => {
+            //   console.log(err);
+            //   res.status(404).json(err);
+            // });
+          
+          
+        };
+        
+        const getstuff = async () =>{
+        const gamers = await gamesGamers();
+        console.log('gamers: '+JSON.stringify(gamers));
+        return gamers;
+        };
+        getstuff();
+      };
+          
+      mapper();
+    
+        // .then(dbGame => {
+        //   console.log("returned from map "+ JSON.stringify(dbGame));
+        //   // temp = dbGame[0].Users;
+        //   return games;
+        // })
+        // .then(data => res.json(data))
+        // .catch(err => {
+        //   console.log(err);
+        //   res.status(404).json(err);
+        // });
     // };
 
 
@@ -109,5 +145,6 @@ module.exports = {
     // let from = turf.point(coordinates);
 
     // finish later
+    res.end();
   }
 }
