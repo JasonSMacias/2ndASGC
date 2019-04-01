@@ -158,25 +158,18 @@ module.exports = {
       let options = {units: "miles"};
       let distanceTo = distance(from, to, options);
       console.log(`-------- Distance to ${x.username} is ${distanceTo} miles -----------`);
-      x.distanceTo = distanceTo;
+      x.distanceFrom = distanceTo;
     };
     console.log("Modified array:     "+JSON.stringify(usersFromMappedArray));
-    
+
     //  sort array by distance variable
+    
 
     // take first thirty closest users and return them in an array
 
 
 
-
-
-    // set turf from point as coordinates
-
-
-    // let coordinates = [req.latitude, req.longitude];
-    // let from = turf.point(coordinates);
-
-    // sending mappedArray as result for now
-    res.json(mappedArray);
+    // sending unsorted usersFromMappedArray for now
+    res.json(usersFromMappedArray);
   }
 }
