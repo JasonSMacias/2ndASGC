@@ -118,12 +118,13 @@ module.exports = {
         // looping over each user in a given game object and pushing into 
         for (let x of game[0].Users) {
           if (x.id == searchingUserId || usersFromMappedArray.includes(x.id)){
-            break;
+            
+            console.log("id "+x.id+"didn't go in.");
           }
           else {
             // just pushing the id for now to check if it works
             // need to push more useful information into there later
-            usersFromMappedArray.push(x.id);
+            usersFromMappedArray.push(JSON.stringify(x));
           }
           
         };
