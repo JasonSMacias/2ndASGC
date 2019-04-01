@@ -5,7 +5,7 @@ const turfDistance = require('@turf/distance');
 
 module.exports = {
   // compare coordinates sent in latitude and longitude in req.body to coordinates of other users in db where a match exists with one of the games in game interest array sent in req.body, return sorted list of nearest users with matching game interests. or maybe just send user id and set up promise chain to get coordinates, games, then get users with matching games, get coordinates for each, use turf distance to set a distance for each, and sort, then return sorted list.
-  findNear: function(req, res) {
+  findNear: async function(req, res) {
       let geocode = {};
       let games = [];
       let gameIds;
@@ -88,12 +88,12 @@ module.exports = {
 
           // Damn, it took forever to figure out that I had to use Promise.all with a .map :-/
           const finalArray = await Promise.all(rawGamesArray).then((completed) => {
-            console.log("result ===== "+ JSON.stringify(completed[0]));
-            console.log("result ===== "+ JSON.stringify(completed[1]));
+            // console.log("result ===== "+ JSON.stringify(completed[0]));
+            // console.log("result ===== "+ JSON.stringify(completed[1]));
             return completed;
           });
 
-          console.log("++++++  Final  +++++++"+finalArray);
+          // console.log("++++++  Final  +++++++"+finalArray);
             
           return finalArray;
           
@@ -101,17 +101,47 @@ module.exports = {
         
         const getstuff = async () =>{
         const gamers = await gamesGamers();
-        console.log('gamers: '+gamers);
+        // console.log('gamers: '+gamers);
         return gamers;
         };
         return getstuff();
       };
           
-      mapper();
+      // mapped array contains an array of game objects, each of which contains an array of users and their information, including geocode
+      const mappedArray = await mapper();
+      console.log("Mapped Array =======> "+mappedArray);
+
+      // Pulling users from each array (games) within mappedArray, excluding requesting user and duplicates
+      let usersFromMappedArray = [];
+      mappedArray.forEach( game => {
+        console.log("GAME     "+JSON.stringify(game[0]));
+        // looping over each user in a given game object and pushing into 
+        for (let x of game[0].Users) {
+          if (x.id == searchingUserId || usersFromMappedArray.includes(x.id)){
+            break;
+          }
+          else {
+            // just pushing the id for now to check if it works
+            // need to push more useful information into there later
+            usersFromMappedArray.push(x.id);
+          }
+          
+        };
+        console.log("users from mapped array:     "+usersFromMappedArray);
+
+        return false;
+      });
+
+
+
+
+
+
 
 
 
     //  compare user geocode to each pulled user geocode, adding distance between to new key/value in each user object
+
 
     //  sort array by distance variable
 
@@ -127,7 +157,7 @@ module.exports = {
     // let coordinates = [req.latitude, req.longitude];
     // let from = turf.point(coordinates);
 
-    // finish later
-    res.end();
+    // sending mappedArray as result for now
+    res.json(mappedArray);
   }
 }
