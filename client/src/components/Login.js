@@ -162,11 +162,11 @@ class Login extends Component {
                     <div className="column">
                       <ul>
                         <li>
-                          <Link to='/dashboard' className="lnk is-size-5">User Dashboard</Link>
+                          <Link to='/dashboard' className="lnk is-size-5">Dashboard</Link>
                         </li>
                         <br />
                         <li>
-                          <Link to='/dashboard' className="lnk is-size-5">Users Near Me</Link>
+                          <Link to='/dashboard' className="lnk is-size-5">Nearby Users</Link>
                         </li>
                         <br />
                         <li>
