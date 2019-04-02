@@ -166,10 +166,10 @@ module.exports = {
     usersFromMappedArray.sort(function(a, b){
       const distanceA = a.distanceFrom;
       const distanceB = b.distanceFrom;
-      return distanceB-distanceA;
+      return distanceA-distanceB;
       });
     console.log("Sorted array:    "+JSON.stringify(usersFromMappedArray));
-    
+
     // return array of relevant users sorted by distance from requesting user
     res.json(usersFromMappedArray);
   }
