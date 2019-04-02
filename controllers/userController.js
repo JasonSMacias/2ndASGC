@@ -45,7 +45,8 @@ module.exports = {
         id: req.user.id, 
         username: req.user.username,
         address: req.user.address,
-        geocodeLocation: req.user.geocodeLocation
+        geocodeLocation: req.user.geocodeLocation,
+        name: req.user.name
       });
     }
     else {

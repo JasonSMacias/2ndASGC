@@ -14,11 +14,13 @@
 
 .lnk {
   color: navy;
+  text-decoration: underline;
 }
 
 .lnk:hover {
   color: black;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .pagehead {
