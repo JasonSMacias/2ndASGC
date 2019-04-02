@@ -163,13 +163,14 @@ module.exports = {
     console.log("Modified array:     "+JSON.stringify(usersFromMappedArray));
 
     //  sort array by distance variable
+    usersFromMappedArray.sort(function(a, b){
+      const distanceA = a.distanceFrom;
+      const distanceB = b.distanceFrom;
+      return distanceB-distanceA;
+      });
+    console.log("Sorted array:    "+JSON.stringify(usersFromMappedArray));
     
-
-    // take first thirty closest users and return them in an array
-
-
-
-    // sending unsorted usersFromMappedArray for now
+    // return array of relevant users sorted by distance from requesting user
     res.json(usersFromMappedArray);
   }
 }
