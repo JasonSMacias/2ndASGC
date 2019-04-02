@@ -13,6 +13,7 @@ class Login extends Component {
       modalContent: "",
       username: "",
       geocodeLocation: {},
+      name: "",
     }
 
   handleInputChange = e => {
@@ -70,6 +71,7 @@ class Login extends Component {
         this.setState({
           username: res.data.username,
           geocodeLocation: res.data.geocodeLocation,
+          name: res.data.name,
           });
       })
 
@@ -150,13 +152,53 @@ class Login extends Component {
           <div className="level-right">
             <div className="level-item">
               <section className="field is-grouped-multiline box">
-                <div>Logged in as {this.state.username}</div>
-                <br />
-                <div>
+
+                {/* <div>
                   City: {this.state.geocodeLocation ? this.state.geocodeLocation.city : "City not found"} <br />
                   Latitude and Longitude: {this.state.geocodeLocation ?this.state.geocodeLocation.latitude : "coordinates"}, {this.state.geocodeLocation ?this.state.geocodeLocation.longitude : "not found"}
-                </div>
-                <br />
+                </div> */}
+                
+                  <div className="columns is-mobile">
+                    <div className="column">
+                      <ul>
+                        <li>
+                          <Link to='/dashboard' className="lnk is-size-5">User Dashboard</Link>
+                        </li>
+                        <br />
+                        <li>
+                          <Link to='/dashboard' className="lnk is-size-5">Users Near Me</Link>
+                        </li>
+                        <br />
+                        <li>
+                          <Link to='/dashboard' className="lnk is-size-5">Edit Profile</Link>
+                        </li>
+                        <br />
+                      </ul>
+                    </div>
+                    <div className="column">
+                      <ul>
+                        <li>
+                          <span className="">Name: </span><br />{this.state.name}
+                        </li>
+                        <li>
+                          Username:<br /><Link to='/dashboard' className="lnk">{this.state.username}</Link>
+                        </li>
+                        <li>
+                          Email:<br />{this.state.email}
+                        </li>
+                        <li>
+                          City:<br />{this.state.geocodeLocation ? (this.state.geocodeLocation.city + ", " + this.state.geocodeLocation.stateCode + ", " + this.state.geocodeLocation.countryCode) : "City not found"}
+                        </li>
+                        <li>
+                          <Link to='/dashboard' className="lnk"></Link>
+                        </li>
+                        <li>
+                          <Link to='/dashboard' className="lnk"></Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  
                 <div className="control">
                   <button type="submit" className="button is-dark is-rounded" onClick={this.logout}>Logout</button>
                 </div>
