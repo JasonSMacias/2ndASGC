@@ -157,6 +157,8 @@ class Signup extends Component {
           />
         </div>
         <br />
+        <div>* Only your Username will be visible to others by default.</div>
+        <br />
         <div className="control">
           <button type="submit" className="button is-dark is-rounded" onClick={this.register} >Sign Up</button>
         </div>
