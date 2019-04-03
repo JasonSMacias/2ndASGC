@@ -6,7 +6,7 @@ import Modal from './Modal';
 class Login extends Component {
 
     state = {
-      isLoggedIn: false,
+      // isLoggedIn: false,
       password: "",
       email: "",
       active: "modal",
@@ -37,7 +37,7 @@ class Login extends Component {
         console.log(res.data);
         // testing changing grandparent state here
         this.setLoggedIn(true);
-        this.setState({isLoggedIn: this.props.isLoggedIn});
+        // this.setState({isLoggedIn: this.props.isLoggedIn});
         this.usercheck();
       })
       .catch(err => {
@@ -61,7 +61,7 @@ class Login extends Component {
       .then(res => {
         // testing setting grandparent state here
         this.setLoggedIn(false);
-        this.setState({isLoggedIn: this.props.isLoggedIn});
+        // this.setState({isLoggedIn: this.props.isLoggedIn});
         this.setState({password: ""})
       })
       .catch(err => {
@@ -103,7 +103,7 @@ class Login extends Component {
     return (
       <React.Fragment>
         {/* <p>Sign in stuff OR basic member information <br /> and link to dashboard</p>     */}
-        {!this.state.isLoggedIn ?
+        {!this.props.isLoggedIn ?
           <React.Fragment>
           <div className="level-right">
             <div className="level-item">
