@@ -19,12 +19,17 @@ class Signup extends Component {
     modalContent: '',
   }
 
+  setLoggedIn = (e) => {
+    this.props.setLoggedIn(e);
+  }
+
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({
       [name] : value
     })
   }
+
 
   register = (e) => {
     e.preventDefault();
@@ -50,8 +55,13 @@ class Signup extends Component {
             asgc: 'Abstract Strategy Gamers Club',
             modalContent: 'Sign up successful.',
             prefix: 'Welcome to the '
-          })
+          });
+          console.log(this.props.setLoggedIn);
+
+          //removed setting login here for now until rest of state info is lifted
+          // this.setLoggedIn(true);
           this.activateModal();
+
           // this.setState({ success: res.data });
           
         })
@@ -156,6 +166,8 @@ class Signup extends Component {
             placeholder="Password"
           />
         </div>
+        <br />
+        <div>* Only your Username will be visible to others by default.</div>
         <br />
         <div className="control">
           <button type="submit" className="button is-dark is-rounded" onClick={this.register} >Sign Up</button>

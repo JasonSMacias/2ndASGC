@@ -10,10 +10,7 @@ const Masthead = (props) => {
       <div className="container">
         <div className="level">
           <Logo />
-          { loginBoxPresent ?
-            <Login />
-            : ""
-          }
+          <Login isLoggedIn={props.isLoggedIn} setLoggedIn={props.setLoggedIn} />
         </div>
       </div>
     </section>
