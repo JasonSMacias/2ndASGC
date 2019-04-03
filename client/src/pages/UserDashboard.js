@@ -1,13 +1,44 @@
-import React from 'react';
-import DashboardTile from '../components/GameSitesTile';
+import React, {Component} from 'react';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+import API from '../utils/API';
+// import Modal from '../components/Modal';
+import NearbyUsers from '../components/NearbyUsers';
 
-function UserDashboard(props) {
-  return (
-    <div className="box" >
-      <h2 className="section-head"><span className="icon has-text-black-bis"><i class="fas fa-user"></i></span >  <span className="pagehead">User Dashboard</span></h2> <hr />
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis, aspernatur voluptatibus id quibusdam accusamus qui. Enim nam provident deserunt ex perferendis ullam illum eos, nisi repudiandae non hic facere reiciendis.</p>
-    </div>
-  );
+
+class UserDashboard extends Component {
+
+  state = {
+    page: 0,
+  }
+
+  changePage = pageNumber => {
+    this.setState({page: pageNumber})
+  }
+
+  render () {
+    let pageOn = this.state.page;
+    console.log("page = "+pageOn);
+    return (
+      <div className="box">
+        <h2 className="section-head"><span className="icon has-text-black-bis"><i class="fas fa-user"></i></span >  <span className="pagehead">User Dashboard</span></h2> <hr />
+        <ul>
+          <li>
+            <button onClick={() => this.changePage(1)} className="lnk is-size-5">Edit profile</button>
+          </li>
+          <li>
+            <button onClick={() => this.changePage(2)} className="lnk is-size-5">Nearby Users</button>
+          </li>
+        </ul>
+        {
+          (pageOn === 1) ? "Temporary text for Edit Profile page"
+          :
+          (pageOn === 2) ? <NearbyUsers  />
+          :
+          "Temporary text for root Dashboard page"
+        }
+      </div>
+    );
+  }
 }
 
 export default UserDashboard;
