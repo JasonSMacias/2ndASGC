@@ -35,5 +35,10 @@ export default {
   addAddress: function (userInfo) {
     console.log("======================Userinfo"+JSON.stringify(userInfo));
     return axios.put("/api/users/geo", userInfo);
+  },
+
+  nearbyUsers: function(userId) {
+    console.log("User id: " + userId);
+    return axios.get("/api/distance/" + userId);
   }
 }
