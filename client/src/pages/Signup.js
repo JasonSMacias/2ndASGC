@@ -57,7 +57,9 @@ class Signup extends Component {
             prefix: 'Welcome to the '
           });
           console.log(this.props.setLoggedIn);
-          this.setLoggedIn(true);
+
+          //removed setting login here for now until rest of state info is lifted
+          // this.setLoggedIn(true);
           this.activateModal();
 
           // this.setState({ success: res.data });
