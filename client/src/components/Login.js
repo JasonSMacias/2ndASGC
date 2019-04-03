@@ -16,6 +16,10 @@ class Login extends Component {
       name: "",
     }
 
+  setLoggedIn = (e) => {
+    this.props.setLoggedIn(e);
+  }
+
   handleInputChange = e => {
     const { name, value } = e.target;
 
@@ -31,7 +35,9 @@ class Login extends Component {
       .login({email: this.state.email, password: this.state.password})
       .then(res => {
         console.log(res.data);
-        this.setState({isLoggedIn: res.data})
+        // testing changing grandparent state here
+        this.setLoggedIn(true);
+        this.setState({isLoggedIn: this.props.isLoggedIn});
         this.usercheck();
       })
       .catch(err => {
@@ -53,7 +59,9 @@ class Login extends Component {
         this.setState({active: 'modal is-active'})
       })
       .then(res => {
-        this.setState({isLoggedIn: false});
+        // testing setting grandparent state here
+        this.setLoggedIn(false);
+        this.setState({isLoggedIn: this.props.isLoggedIn});
         this.setState({password: ""})
       })
       .catch(err => {

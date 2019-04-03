@@ -17,6 +17,11 @@ class App extends Component {
     loginBoxPresent: true
      }
   
+  setLoggedIn = (boolVal) => {
+    this.setState({
+      isLoggedIn : boolVal
+    })
+  };
 // to get users: {this.state.users.map(user => <li key={user.id}>{user.user_name}, {user.address}</li>)}
 
 
@@ -44,7 +49,7 @@ class App extends Component {
     return (
       <Router>
         <React.Fragment>
-          <Masthead loginBoxPresent={this.state.loginBoxPresent} />
+          <Masthead setLoggedIn={this.setLoggedIn} isLoggedIn={this.state.isLoggedIn} />
             <section className="section">
               <div className="container">
                 <Switch>
@@ -54,7 +59,7 @@ class App extends Component {
                   <Route exact path="/game-sites" component={GamesSites} />
                   <Route exact path="/dashboard" component={UserDashboard} />
                   <Route exact path="/members" component={Members} />
-                  <Route exact path="/signup" component={Signup} loginBoxPresent={this.state.loginBoxPresent} />
+                  <Route exact path="/signup" render={(props) => <Signup {...props} setLoggedIn={this.setLoggedIn} isLoggedIn={this.state.isLoggedIn} />} />
                 </Switch>
               </div>
             </section>

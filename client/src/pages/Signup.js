@@ -19,12 +19,17 @@ class Signup extends Component {
     modalContent: '',
   }
 
+  setLoggedIn = (e) => {
+    this.props.setLoggedIn(e);
+  }
+
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({
       [name] : value
     })
   }
+
 
   register = (e) => {
     e.preventDefault();
@@ -50,8 +55,11 @@ class Signup extends Component {
             asgc: 'Abstract Strategy Gamers Club',
             modalContent: 'Sign up successful.',
             prefix: 'Welcome to the '
-          })
+          });
+          console.log(this.props.setLoggedIn);
+          this.setLoggedIn(true);
           this.activateModal();
+
           // this.setState({ success: res.data });
           
         })
