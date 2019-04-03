@@ -4,10 +4,11 @@ import API from '../utils/API';
 
 class NearbyUsers extends Component {
   state = {
-    userId: ""
+    userId: "",
+    distanceResponse: []
   }
   usercheck = () => {
-    const checkUserId = API
+    API
       .userCheck()
       .then(res => {
         
@@ -21,28 +22,38 @@ class NearbyUsers extends Component {
     
   }
 
-  componentDidMount() {
-    // If user is logged in, take them to main page
-    
-      console.log("it worked");
-      this.usercheck();
-      // return <Redirect to ="/dashboard" />
+  nearByUsers = (userId) => {
+    API
+      .nearbyUsers(userId)
+      .then(res => {
+        console.log("Res.DAta:    "+res.data);
+        this.setState({
+          distanceResponse: res.data
+        });
+      })
+  }
 
+  componentDidMount() {
+    this.usercheck();
+    setTimeout(() => { 
+      let uid = this.state.userId;
+      this.nearByUsers(uid);
+       }, 1000);
   }
 
   // const nearbyUsers = 
   render () {
     let userId = this.state.userId;
+    
     return (
       <div>
 
         <h1>Nearby Users Filler</h1>
 
-        <p>This will have general info with a hamburger menu upper left</p>
-
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem minus ea possimus debitis maxime minima, consequatur fuga natus rem dignissimos adipisci quasi pariatur vero sint, dolore voluptate excepturi nostrum ducimus.</p>
+        
 
         <p>{userId}</p>
+        <p>{JSON.stringify(this.state.distanceResponse)}</p>
           
       </div>
     );

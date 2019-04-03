@@ -39,6 +39,6 @@ export default {
 
   nearbyUsers: function(userId) {
     console.log("User id: " + userId);
-    return axios.get("/api/users/" + userId);
+    return axios.get("/api/distance/" + userId);
   }
 }
