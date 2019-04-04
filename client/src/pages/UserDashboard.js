@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-ro
 import API from '../utils/API';
 // import Modal from '../components/Modal';
 import NearbyUsers from '../components/NearbyUsers';
+import EditProfile from '../components/EditProfile';
 
 
 class UserDashboard extends Component {
@@ -23,14 +24,14 @@ class UserDashboard extends Component {
         <h2 className="section-head"><span className="icon has-text-black-bis"><i class="fas fa-user"></i></span >  <span className="pagehead">User Dashboard</span></h2> <hr />
         <ul>
           <li>
-            <button onClick={() => this.changePage(1)} className="lnk is-size-5">Edit profile</button>
+            <button onClick={() => this.changePage(1)} className="lnk button is-size-5">Edit profile</button>
           </li>
           <li>
-            <button onClick={() => this.changePage(2)} className="lnk is-size-5">Nearby Users</button>
+            <button onClick={() => this.changePage(2)} className="lnk button is-size-5">Nearby Users</button>
           </li>
         </ul>
         {
-          (pageOn === 1) ? "Temporary text for Edit Profile page"
+          (pageOn === 1) ? <EditProfile />
           :
           (pageOn === 2) ? <NearbyUsers  />
           :

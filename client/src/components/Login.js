@@ -28,7 +28,7 @@ class Login extends Component {
     })
   }
 
- // Method to handle user login, should redirect to main page when done
+ // Method to handle user login
   login = (e) => {
     e.preventDefault();
     API
@@ -170,15 +170,17 @@ class Login extends Component {
                     <div className="column">
                       <ul>
                         <li>
-                          <Link to='/dashboard' className="lnk is-size-5">Dashboard</Link>
+                          <Link to='/dashboard' className="lnk button is-size-5">Dashboard</Link>
                         </li>
                         <br />
                         <li>
-                          <Link to='/dashboard' className="lnk is-size-5">Nearby Users</Link>
+                          {/* <Link to='/dashboard' className="lnk is-size-5" disabled>Nearby Users</Link> */}
+                          <button className="lnk button is-size-5" disabled>Nearby Users</button>
                         </li>
                         <br />
                         <li>
-                          <Link to='/dashboard' className="lnk is-size-5">Edit Profile</Link>
+                          <button className="lnk button is-size-5" disabled>Edit Profile</button>
+                          {/* <Link to='/dashboard' className="lnk is-size-5" disabled>Edit Profile</Link> */}
                         </li>
                         <br />
                       </ul>
