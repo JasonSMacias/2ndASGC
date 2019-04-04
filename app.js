@@ -38,6 +38,6 @@ app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build", "index.html"));
 });
 
-db.sequelize.sync({force: true}).then(function() {
+db.sequelize.sync({force: false}).then(function() {
   app.listen(PORT, () => console.log("server up and running"));
 });
