@@ -32,7 +32,7 @@ class Signup extends Component {
 
 
   register = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     if (this.state.password == this.state.confirmPassword) {
       API
         .register({ 
