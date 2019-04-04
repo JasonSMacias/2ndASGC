@@ -42,6 +42,10 @@ export default {
     return axios.get("/api/distance/" + userId);
   },
 
+  userUpdate: function(userInfo) {
+    return axios.post("/api/usergame", userInfo);
+  },
+
   allGames: function() {
     return axios.get("api/games");
   }

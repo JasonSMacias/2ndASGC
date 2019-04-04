@@ -47,14 +47,17 @@ class NearbyUsers extends Component {
     
     return (
       <div>
+        <br />
+        <h1 className="is-size-4 has-text-centered">Users near you interested in playing your favorite games</h1>
+        <br />
+        {/* <p>{userId}</p>
+        <p>{JSON.stringify(this.state.distanceResponse)}</p> */}
 
-        <h1>Nearby Users Filler</h1>
-
-        
-
-        <p>{userId}</p>
-        <p>{JSON.stringify(this.state.distanceResponse)}</p>
-          
+        <ul className="list">
+        {this.state.distanceResponse.map(x => {
+          return<li className="list-item is-size-5 has-text-centered" key={JSON.stringify(x.id)}>User {JSON.stringify(x.username)} is {Math.round(x.distanceFrom)} miles away from you in {x.geocodeLocation.city}, {x.geocodeLocation.stateCode}, {x.geocodeLocation.countryCode}.</li>
+        })}
+        </ul>
       </div>
     );
   }

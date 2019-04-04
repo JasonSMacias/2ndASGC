@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import API from '../utils/API';
 
 function MembersTile(props) {
   return (
@@ -34,7 +35,10 @@ function MembersTile(props) {
           </div> */}
           <h2 className="section-head has-text-centered"><span className="icon has-text-black-bis"><i class="fas fa-brain"></i></span> <Link to='/members' className="lnk">Members</Link></h2> <hr />
           <p>This will have general info with a hamburger menu upper left</p>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem minus ea possimus debitis maxime minima, consequatur fuga natus rem dignissimos adipisci quasi pariatur vero sint, dolore voluptate excepturi nostrum ducimus.</p>
+          {/* <ul className="list">
+            {}
+          </ul> */}
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus unde illum nulla voluptate necessitatibus libero accusantium impedit eaque vero. Odio quasi voluptates corrupti laudantium modi inventore voluptas repellendus voluptatibus voluptatem.</p>
         </div>
     </section>
   );
