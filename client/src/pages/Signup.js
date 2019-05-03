@@ -33,7 +33,13 @@ class Signup extends Component {
 
   register = (e) => {
     e.preventDefault(); 
-    if (this.state.password == this.state.confirmPassword) {
+    let emailCheck = this.state.email;
+    let usernameCheck = this.state.username;
+    let nameCheck = this.state.name;
+    let passwordCheck = this.state.password;
+    let addressCheck = this.state.address;
+    // validating signup input
+    if (this.state.password === this.state.confirmPassword && emailCheck.match(/\S+@\S+/) && usernameCheck.length > 0 &&usernameCheck.length < 256 && nameCheck.length > 0 && nameCheck.length < 256 && passwordCheck.length > 0 && passwordCheck.length < 256 && addressCheck.length > 0 && addressCheck.length < 256 && emailCheck.length < 256) {
       API
         .register({ 
           username: this.state.username,
@@ -41,7 +47,7 @@ class Signup extends Component {
           email: this.state.email,
           address: this.state.address,
           password: this.state.password 
-          })
+          }) 
         .then(res => {
           console.log("returned from register"+JSON.stringify(res.data));
           console.log("this.state.address from signup"+this.state.address);
@@ -66,6 +72,31 @@ class Signup extends Component {
           
         })
         .catch(err => console.log(err));
+    }
+    // very basic regex email validation
+    else if (!emailCheck.match(/\S+@\S+/)) {
+      this.setState({
+        modalContent: 'Please enter a valid email.',
+        prefix: '',
+        asgc: ''
+      });
+      this.activateModal();
+    }
+    else if (!usernameCheck || !nameCheck || !passwordCheck || !addressCheck) {
+      this.setState({
+        modalContent: 'Name, Username, Address, and Password fields are required.',
+        prefix: '',
+        asgc: ''
+      })
+      this.activateModal();
+    }
+    else if (usernameCheck.length > 256 || nameCheck.length > 256 || passwordCheck.length > 256 || emailCheck.length > 256 ||addressCheck.length > 256) {
+      this.setState({
+        modalContent: 'Name, Username, Email, Address, and Password fields have a maximum length of 255 characters.',
+        prefix: '',
+        asgc: ''
+      })
+      this.activateModal();
     }
     else {
       this.setState({
