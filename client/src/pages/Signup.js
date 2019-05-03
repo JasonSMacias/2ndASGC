@@ -33,7 +33,10 @@ class Signup extends Component {
 
   register = (e) => {
     e.preventDefault(); 
-    if (this.state.password == this.state.confirmPassword) {
+    let emailCheck = this.state.email;
+    let usernameCheck = this.state.username;
+    let nameCheck = this.state.name;
+    if (this.state.password === this.state.confirmPassword && emailCheck.match(/\S+@\S+/ && usernameCheck.length > 0 && nameCheck.length > 0)) {
       API
         .register({ 
           username: this.state.username,
@@ -41,7 +44,7 @@ class Signup extends Component {
           email: this.state.email,
           address: this.state.address,
           password: this.state.password 
-          })
+          }) 
         .then(res => {
           console.log("returned from register"+JSON.stringify(res.data));
           console.log("this.state.address from signup"+this.state.address);
@@ -66,6 +69,23 @@ class Signup extends Component {
           
         })
         .catch(err => console.log(err));
+    }
+    // very basic regex email validation
+    else if (!emailCheck.match(/\S+@\S+/)) {
+      this.setState({
+        modalContent: 'Please enter a valid email.',
+        prefix: '',
+        asgc: ''
+      });
+      this.activateModal();
+    }
+    else if (!usernameCheck || !nameCheck) {
+      this.setState({
+        modalContent: 'Name and Username fields are required.',
+        prefix: '',
+        asgc: ''
+      })
+      this.activateModal();
     }
     else {
       this.setState({
