@@ -36,7 +36,10 @@ class Signup extends Component {
     let emailCheck = this.state.email;
     let usernameCheck = this.state.username;
     let nameCheck = this.state.name;
-    if (this.state.password === this.state.confirmPassword && emailCheck.match(/\S+@\S+/ && usernameCheck.length > 0 && nameCheck.length > 0)) {
+    let passwordCheck = this.state.password;
+    let addressCheck = this.state.address;
+    // validating signup input
+    if (this.state.password === this.state.confirmPassword && emailCheck.match(/\S+@\S+/) && usernameCheck.length > 0 &&usernameCheck.length < 256 && nameCheck.length > 0 && nameCheck.length < 256 && passwordCheck.length > 0 && passwordCheck.length < 256 && addressCheck.length > 0 && addressCheck.length < 256 && emailCheck.length < 256) {
       API
         .register({ 
           username: this.state.username,
@@ -79,9 +82,17 @@ class Signup extends Component {
       });
       this.activateModal();
     }
-    else if (!usernameCheck || !nameCheck) {
+    else if (!usernameCheck || !nameCheck || !passwordCheck || !addressCheck) {
       this.setState({
-        modalContent: 'Name and Username fields are required.',
+        modalContent: 'Name, Username, Address, and Password fields are required.',
+        prefix: '',
+        asgc: ''
+      })
+      this.activateModal();
+    }
+    else if (usernameCheck.length > 256 || nameCheck.length > 256 || passwordCheck.length > 256 || emailCheck.length > 256 ||addressCheck.length > 256) {
+      this.setState({
+        modalContent: 'Name, Username, Email, Address, and Password fields have a maximum length of 255 characters.',
         prefix: '',
         asgc: ''
       })

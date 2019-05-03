@@ -27,7 +27,7 @@ export default {
     }
   */
   register: function(userInfo) {
-    return axios.post("/api/users", userInfo);
+    return axios.post("/api/users/", userInfo);
     console.log(userInfo);
   },
 
