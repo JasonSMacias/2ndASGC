@@ -9,6 +9,7 @@ class EditProfile extends Component {
     active: "modal",
     allGames: [],
     selectedGames: [],
+    modalContent: ""
   }
 
   usercheck = function() {
@@ -76,7 +77,11 @@ class EditProfile extends Component {
         })
         .then(
           (y) => {
-            console.log("Y ========== "+y)
+            console.log("Y ========== "+y);
+            this.setState({
+            modalContent: 'Profile Updated.',
+            active: 'modal is-active'
+            });
           }
         );
       
@@ -123,7 +128,15 @@ class EditProfile extends Component {
         </div> */}
           <button className="button is-dark is-rounded" onClick={this.addGames} >Save</button>
 
-          {/* <Modal /> */}
+          <Modal 
+            close={this.close} 
+            active={this.state.active} 
+            username=''
+            prefix=''
+            asgc=''
+            // modalContent={this.state.modalContent} 
+            modalContent={this.state.modalContent}
+        />
       </React.Fragment>
     );
   }
